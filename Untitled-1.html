@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Document</title>
+		<link
+			href="https://cdn.jsdelivr.net/npm/@n8n/chat/dist/style.css"
+			rel="stylesheet"
+		/>
+
+		<link
+			href="https://cdn.jsdelivr.net/npm/@n8n/chat/dist/style.css"
+			rel="stylesheet"
+		/>
+
+		<style>
+			/* ====== Tema Clínico – Vitale ====== */
+			:root {
+				/* Cores base */
+				--vitale-primary: #006993; /* azul principal */
+				--vitale-primary-600: #035a7b; /* hover */
+				--vitale-accent: #02a6a9; /* toque clínico/realce */
+				--vitale-bg: #f6f8fa; /* fundo claro */
+				--vitale-text: #1f2937; /* cinza-escuro legível */
+				--vitale-muted: #6b7280; /* secundário */
+				--vitale-success: #1f9d55; /* ok/checks */
+
+				/* Bubbles */
+				--user-bubble-bg: #e8f2f7; /* bolha do utilizador */
+				--bot-bubble-bg: #ffffff; /* bolha do bot */
+				--bubble-radius: 14px;
+
+				/* Borda/sombra */
+				--frame-border: 1px solid #e5e7eb;
+				--frame-shadow: 0 8px 30px rgba(0, 0, 0, 0.06);
+
+				/* Tipografia */
+				--chat-font: Inter, system-ui, -apple-system, Segoe UI, Roboto,
+					"Helvetica Neue", Arial, "Noto Sans", "Apple Color Emoji",
+					"Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", sans-serif;
+
+				/* Inputs */
+				--input-bg: #ffffff;
+				--input-border: #d1d5db;
+				--input-focus: var(--vitale-primary);
+			}
+
+			/* ====== Container geral ====== */
+			#n8n-chat {
+				font-family: var(--chat-font);
+			}
+
+			/* Janela/flutuante */
+			.n8n-chat-window,
+			.chat-window {
+				background: var(--vitale-bg);
+				border: var(--frame-border);
+				box-shadow: var(--frame-shadow);
+				border-radius: 16px !important;
+				overflow: hidden;
+			}
+
+			/* Header compacto e profissional */
+			.chat-header {
+				display: flex;
+				align-items: center;
+				gap: 10px;
+				background: linear-gradient(0deg, #f9fafb 0%, #ffffff 100%);
+				border-bottom: var(--frame-border);
+				padding: 5px 10px !important;
+			}
+			.chat-heading {
+				padding: 0 !important;
+			}
+
+			.chat-header .title {
+				color: var(--vitale-primary);
+				font-weight: 600;
+				letter-spacing: 0.2px;
+			}
+			.chat-header .subtitle {
+				color: var(--vitale-muted);
+				font-size: 12px;
+			}
+
+			/* Área das mensagens */
+			.message-list,
+			.chat-messages {
+				padding: 14px 14px 6px !important;
+			}
+
+			/* Bolhas do bot */
+			.message.bot,
+			.message.assistant {
+				background: var(--bot-bubble-bg);
+				border: 1px solid #eef2f7;
+				border-radius: var(--bubble-radius);
+				color: var(--vitale-text);
+				padding: 10px 12px;
+				margin: 8px 0;
+				box-shadow: 0 2px 8px rgba(0, 0, 0, 0.03);
+			}
+
+			/* Bolhas do utilizador */
+			.message.user {
+				background: var(--user-bubble-bg);
+				border: 1px solid #dbe7ee;
+				border-radius: var(--bubble-radius);
+				color: var(--vitale-text);
+				padding: 10px 12px;
+				margin: 8px 0;
+			}
+
+			/* Links e ênfases */
+			.message a {
+				color: var(--vitale-primary);
+				text-decoration: none;
+				border-bottom: 1px dotted var(--vitale-primary);
+			}
+			.message a:hover {
+				color: var(--vitale-primary-600);
+			}
+
+			textarea,
+			.composer textarea,
+			.chat-textarea textarea {
+				background: #fff !important;
+				border: 1px solid var(--input-border) !important;
+				border-radius: 12px !important;
+				outline: none;
+				min-height: 44px;
+				padding: 10px 12px !important;
+				resize: none;
+				transition: border-color 0.15s ease;
+			}
+			textarea:focus {
+				border-color: var(--input-focus) !important;
+				box-shadow: 0 0 0 3px rgba(0, 105, 147, 0.12);
+			}
+
+			/* Botões principais */
+			button,
+			.send-button,
+			.primary {
+				border-radius: 12px !important;
+			}
+			.send-button,
+			.primary {
+				background: var(--vitale-primary) !important;
+				border: 1px solid var(--vitale-primary) !important;
+				color: #fff !important;
+			}
+			.send-button:hover,
+			.primary:hover {
+				background: var(--vitale-primary-600) !important;
+				border-color: var(--vitale-primary-600) !important;
+			}
+
+			/* Welcome screen (Get Started) */
+			.welcome,
+			.get-started {
+				background: #ffffff;
+				border: 1px solid #eef2f7;
+				border-radius: 16px;
+				padding: 18px;
+			}
+
+			/* Rodapé discreto */
+			.chat-footer,
+			.footer {
+				color: var(--vitale-muted);
+				font-size: 12px;
+				padding: 6px 12px;
+				border-top: var(--frame-border);
+			}
+
+			/* Acessibilidade – foco nos botões */
+			.chat-window button:focus-visible {
+				outline: 3px solid rgba(0, 105, 147, 0.35);
+				outline-offset: 2px;
+			}
+
+			/* Dark mode opcional (prefers-color-scheme) */
+			@media (prefers-color-scheme: dark) {
+				:root {
+					--vitale-bg: #0b1220;
+					--vitale-text: #e5e7eb;
+					--bot-bubble-bg: #101827;
+					--user-bubble-bg: #0f2530;
+					--frame-border: 1px solid #1f2937;
+					--input-bg: #0b1220;
+					--input-border: #334155;
+				}
+				.chat-header {
+					background: linear-gradient(0deg, #0b1220 0%, #101827 100%);
+					border-bottom: var(--frame-border);
+				}
+			}
+			/* Esconde o “Powered by n8n” em todas as vistas do widget */
+			.chat-powered-by {
+				display: none !important;
+			}
+
+			/* Alguns builds mostram no ecrã de boas-vindas */
+			.chat-get-started-footer .chat-powered-by {
+				display: none !important;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="n8n-chat" aria-label="Assistente clínico Vitale"></div>
+		<script type="module">
+			import { createChat } from "https://cdn.jsdelivr.net/npm/@n8n/chat/dist/chat.bundle.es.js";
+			createChat({
+				webhookUrl:
+					"http://35.214.27.181:5678/webhook/bccee70b-3800-4ec6-8503-c73fca8366a9/chat",
+				webhookConfig: {
+					method: "POST",
+					headers: {},
+				},
+				target: "#n8n-chat",
+				mode: "window",
+				chatInputKey: "chatInput",
+				chatSessionKey: "sessionId",
+				loadPreviousSession: true,
+				metadata: {},
+				showWelcomeScreen: true,
+				defaultLanguage: "pt",
+				initialMessages: [
+					"Sou o assitente da clinica Vitale, como posso ajudar-te?",
+				],
+				i18n: {
+					pt: {
+						title: "Clinica Vitale 👋",
+						subtitle: "",
+						footer: "Informação geral — não substitui aconselhamento médico.",
+						getStarted: "Nova conversa",
+						inputPlaceholder: "Digite a sua mensagem...",
+					},
+				},
+				enableStreaming: false,
+			});
+		</script>
+	</body>
+</html>
