@@ -1,0 +1,13 @@
+version: "3.9"
+
+services:
+  web:
+    image: nginx:alpine
+    container_name: simple-html-chatbot
+    ports:
+      - "8080:80"             # expõe no host: http://SEU_IP:8080
+    volumes:
+      - ./index.html:/usr/share/nginx/html/index.html:ro
+      # Se tiveres mais ficheiros (imgs, css, etc.), usa a linha abaixo no lugar da de cima:
+      # - ./:/usr/share/nginx/html:ro
+    restart: unless-stopped
